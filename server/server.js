@@ -34,15 +34,21 @@ io.on('connection', (socket) =>{
 
 
  //***Event emitter
-  socket.emit('newMessage', {  //this emits new message that index.html/js will listen to
-    from: 'Greg',
-    text: 'Where are you?',
-    createdAt: 123
-  })
+  // socket.emit('newMessage', {  //this emits new message that index.html/js will listen to
+  //   from: 'Greg',
+  //   text: 'Where are you?',
+  //   createdAt: 123
+  // })
 
   //***Event listener
   socket.on('createMessage', (newMessage) =>{ //this listens for new message from index.html/js
     console.log('creatMessage', newMessage);
+    io.emit('newMessage', { //socket.emi emits event to a single connection while io.emit emits to all connections.
+      from: newMessage.from,
+      text: newMessage.text,
+      createdAt: new Date().getTime()
+   });
+
   })
 
   socket.on('disconnect', (socket) => {

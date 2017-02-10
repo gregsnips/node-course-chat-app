@@ -8,10 +8,10 @@ socket.on('connect', function () {
   // })
 
 //****Event emitter
-  socket.emit('createMessage', { //this emits new message that server.js will listen to
-    from: 'Jen',
-    text: 'I am in the office'
-  })
+  // socket.emit('createMessage', { //this emits new message that server.js will listen to
+  //   from: 'Jen',
+  //   text: 'I am in the office'
+  // })
 })
 
 socket.on('disconnect', function () {
