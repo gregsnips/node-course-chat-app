@@ -34,20 +34,38 @@ io.on('connection', (socket) =>{
 
 
  //***Event emitter
-  // socket.emit('newMessage', {  //this emits new message that index.html/js will listen to
-  //   from: 'Greg',
-  //   text: 'Where are you?',
-  //   createdAt: 123
-  // })
 
+
+//Challenge
+//Socket.emit message from: Admin, text Welcome to the chat app
+socket.emit('newMessage', {  //this emits new message that index.html/js will listen to
+  from: 'Admin',
+  text: 'Welcome to the chat app',
+  createdAt: new Date().getTime()
+})
+
+//Socket.broadcast.emit, from dmin text New user joined
+socket.broadcast.emit('newMessage', {  //this emits new message that index.html/js will listen to
+  from: 'Admin',
+  text: 'New user joined',
+  createdAt: new Date().getTime()
+})
   //***Event listener
   socket.on('createMessage', (newMessage) =>{ //this listens for new message from index.html/js
     console.log('creatMessage', newMessage);
-    io.emit('newMessage', { //socket.emi emits event to a single connection while io.emit emits to all connections.
+    io.emit('newMessage', { //socket.emit emits event to a single connection while io.emit emits to all connections.
       from: newMessage.from,
       text: newMessage.text,
       createdAt: new Date().getTime()
    });
+
+
+ /*Below is another way to emit message using broadcast which sends message to everyone except for the user sending the message*/
+  // socket.broadcast.emit('newMessage', {
+  //        from: newMessage.from,
+  //        text: newMessage.text,
+  //        createdAt: new Date().getTime()
+  // })
 
   })
 
