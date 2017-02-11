@@ -29,7 +29,7 @@ describe('generateLocationMessage', () => {
 var from = 'Theo';
 var latitude = 15;
 var longitude = 20
-var url = 'https:www.google.com/maps?q=15,20'
+var url = 'https://www.google.com/maps?q=15,20'
 
 
 
