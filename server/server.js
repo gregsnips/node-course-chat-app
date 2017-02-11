@@ -53,7 +53,7 @@ socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'))
     console.log('creatMessage', newMessage);
     //socket.emit emits event to a single connection while io.emit emits to all connections.
     io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
-    callback('This is from the server');
+    callback();
  /*Below is another way to emit message using broadcast which sends message to everyone except for the user sending the message*/
   // socket.broadcast.emit('newMessage', {
   //        from: newMessage.from,
