@@ -67,9 +67,15 @@ socket.on('join', (params, callback) => {
 
   //***Event listener
   socket.on('createMessage', (newMessage, callback) =>{ //this listens for new message from index.html/js
-    console.log('creatMessage', newMessage);
+    //console.log('creatMessage', newMessage);
+    var user = users.getUser(socket.id);
+
+    if (user && isRealString(newMessage.text)) {
+
+    io.to(user.room).emit('newMessage', generateMessage(user.name, newMessage.text));
+    }
     //socket.emit emits event to a single connection while io.emit emits to all connections.
-    io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
+
     callback();
  /*Below is another way to emit message using broadcast which sends message to everyone except for the user sending the message*/
   // socket.broadcast.emit('newMessage', {
@@ -80,7 +86,10 @@ socket.on('join', (params, callback) => {
   })
 
   socket.on('createLocationMessage', (coords) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    var user = users.getUser(socket.id);
+    if (user) {
+    io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+  }
   })
 
   socket.on('disconnect', () => {
